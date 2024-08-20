@@ -14,32 +14,32 @@ public class Board {
 
    public Board() {
       this.arrayCoord = new CoordsX[]{CoordsX.a, CoordsX.b, CoordsX.c, CoordsX.d, CoordsX.e, CoordsX.f, CoordsX.g, CoordsX.h, CoordsX.i, CoordsX.j};
-      this.cornerRepres();
+      this.cornerRepres();            //draws a battleGround
       this.drawBattleGround();
    }
 
    public void setOneDeckBoat(Boats boat) {
       this.checkOneDeck(boat);
-      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80"; //Set oneDeckBoat on field
    }
 
    public void setTwoDeckBoat(Boats boat) {
       this.checkTwoDeck(boat);
-      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80"; //Set twoDeckBoat on field
       this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
    }
 
    public void setThreeDeckBoat(Boats boat) {
       this.checkThreeDeck(boat);
       this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
-      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
+      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";  //Set threeDeckBoat on field
       this.battleGround[boat.getY2()][this.x2] = "\ud83d\ude80";
    }
 
    public void setFourDeckBoat(Boats boat) {
       this.checkFourDeck(boat);
       this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
-      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
+      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80"; //Set fourDeckBoat on field
       this.battleGround[boat.getY2()][this.x2] = "\ud83d\ude80";
       this.battleGround[boat.getY3()][this.x3] = "\ud83d\ude80";
    }
@@ -49,7 +49,7 @@ public class Board {
       CoordsX[] var6;
       int var5 = (var6 = this.arrayCoord).length;
 
-      for(int var4 = 0; var4 < var5; ++var4) {
+      for(int var4 = 0; var4 < var5; ++var4) {      //Checking oneDeckBoat that can be placed only on territory of board
          CoordsX item = var6[var4];
          if (item.getRepresentation().equals(boat.getX())) {
             this.x = item.getValue();
@@ -71,7 +71,7 @@ public class Board {
 
       for(int var4 = 0; var4 < var5; ++var4) {
          CoordsX item = var6[var4];
-         if (item.getRepresentation().equals(boat.getX())) {
+         if (item.getRepresentation().equals(boat.getX())) { //Checking twoDeckBoat that can be placed only on territory of board
             this.x = item.getValue();
             condition = true;
          }
@@ -100,7 +100,7 @@ public class Board {
             condition = true;
          }
 
-         if (item.getRepresentation().equals(boat.getX1())) {
+         if (item.getRepresentation().equals(boat.getX1())) { //Checking threeDeckBoat that can be placed only on territory of board
             this.x1 = item.getValue();
             condition = true;
          }
@@ -124,7 +124,7 @@ public class Board {
 
       for(int var4 = 0; var4 < var5; ++var4) {
          CoordsX item = var6[var4];
-         if (item.getRepresentation().equals(boat.getX())) {
+         if (item.getRepresentation().equals(boat.getX())) {  //Checking fourDeckBoat that can be placed only on territory of board
             this.x = item.getValue();
             condition = true;
          }
@@ -165,7 +165,7 @@ public class Board {
 
          if (this.y - 1 != 0 && this.x - 1 != 0) {
             this.battleGround[this.y - 1][this.x] = "*";
-            this.battleGround[this.y - 1][this.x - 1] = "*";
+            this.battleGround[this.y - 1][this.x - 1] = "*";   //Barrier - area around boats on which can't be placed another friendly boat
          }
 
          if (this.y - 1 != 0 && this.x + 1 < 11) {
@@ -437,7 +437,7 @@ public class Board {
 
    public void drawBattleGround() {
       for(int i = 1; i < this.battleGround.length; ++i) {
-         for(int j = 1; j < this.battleGround[i].length; ++j) {
+         for(int j = 1; j < this.battleGround[i].length; ++j) { //Function that draws a battleGround by char symbols
             this.battleGround[i][j] = "%";
          }
       }
@@ -446,7 +446,7 @@ public class Board {
 
    public void showBattleGround() {
       for(int i = 0; i < this.battleGround.length; ++i) {
-         for(int j = 0; j < this.battleGround.length; ++j) {
+         for(int j = 0; j < this.battleGround.length; ++j) { //Console representation of field
             System.out.print(this.battleGround[i][j] + " ");
          }
 
@@ -476,7 +476,7 @@ public class Board {
       this.battleGround[0][3] = CoordsX.c.getRepresentation();
       this.battleGround[0][4] = CoordsX.d.getRepresentation();
       this.battleGround[0][5] = CoordsX.e.getRepresentation();
-      this.battleGround[0][6] = CoordsX.f.getRepresentation();
+      this.battleGround[0][6] = CoordsX.f.getRepresentation(); //Visible representation of corner numbers to know where you can hit another player's boat
       this.battleGround[0][7] = CoordsX.g.getRepresentation();
       this.battleGround[0][8] = CoordsX.h.getRepresentation();
       this.battleGround[0][9] = CoordsX.i.getRepresentation();
@@ -493,21 +493,30 @@ public class Board {
       this.battleGround[10][0] = "10";
    }
 
-   public boolean checkPlacement(Boats boat) {
-      return boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY();
+   public boolean checkPlacement(Boats boat) { //Making sure that boats placed on field
+      return boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) ||
+boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY();
    }
 
    public boolean checkPlacementThree(Boats boat) {
-      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY()) && (boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1());
+      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == 
+boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && 
+boat.getY1() == boat.getY()) && (boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || 
+boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1());
    }
 
    public boolean checkPlacementFour(Boats boat) {
-      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY()) && (boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1()) && (boat.getY3() == boat.getY2() + 1 && boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) || boat.getY3() == boat.getY2() - 1 && boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) || boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) + 1 && boat.getY3() == boat.getY2() || boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) - 1 && boat.getY3() == boat.getY2());
+      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == 
+boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY()) && 
+(boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.convertingToInt(boat.getX2()) ==
+boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1()) && (boat.getY3() == boat.getY2() + 1 && boat.convertingToInt(boat.getX3()) == 
+boat.convertingToInt(boat.getX2()) || boat.getY3() == boat.getY2() - 1 && boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) || boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) + 1 && boat.getY3() == boat.getY2() || 
+boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) - 1 && boat.getY3() == boat.getY2());
    }
 
    public boolean checkExistence(Board board) {
       for(int i = 1; i < board.battleGround.length; ++i) {
-         for(int j = 1; j < board.battleGround[i].length; ++j) {
+         for(int j = 1; j < board.battleGround[i].length; ++j) { //Function for checking existence of boats by coords
             if (board.battleGround[i][j] == "\ud83d\ude80") {
                return true;
             }
