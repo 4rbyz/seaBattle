@@ -24,7 +24,7 @@ public class Boats extends Board {
       this.counter = counter;
    }
 
-   public String getX() {
+   public String getX() {//Return a coords of field x,y
       return this.x;
    }
 
@@ -72,7 +72,7 @@ public class Boats extends Board {
       return this.CountFourDeck;
    }
 
-   public Boats(String x, int y) {
+   public Boats(String x, int y) {//Class which apply coords to manipulate for future
       this.x = x;
       this.y = y;
       this.counter = 1;
