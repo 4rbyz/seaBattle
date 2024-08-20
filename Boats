@@ -1,0 +1,114 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+public class Boats extends Board {
+   private int countOneDeck = 4;
+   private int countTwoDeck = 3;
+   private int CountThreeDeck = 2;
+   private int CountFourDeck = 1;
+   private String x;
+   private String x1;
+   private String x2;
+   private String x3;
+   private int y;
+   private int y1;
+   private int y2;
+   private int y3;
+   private int counter;
+   String charakter = "\ud83d\ude80";
+   private Board battleGround = new Board();
+
+   public int getCounter() {
+      return this.counter;
+   }
+
+   public void setCounter(int counter) {
+      this.counter = counter;
+   }
+
+   public String getX() {
+      return this.x;
+   }
+
+   public String getX1() {
+      return this.x1;
+   }
+
+   public String getX2() {
+      return this.x2;
+   }
+
+   public String getX3() {
+      return this.x3;
+   }
+
+   public int getY() {
+      return this.y;
+   }
+
+   public int getY1() {
+      return this.y1;
+   }
+
+   public int getY2() {
+      return this.y2;
+   }
+
+   public int getY3() {
+      return this.y3;
+   }
+
+   public int getCountOneDeck() {
+      return this.countOneDeck;
+   }
+
+   public int getCountTwoDeck() {
+      return this.countTwoDeck;
+   }
+
+   public int getCountThreeDeck() {
+      return this.CountThreeDeck;
+   }
+
+   public int getCountFourDeck() {
+      return this.CountFourDeck;
+   }
+
+   public Boats(String x, int y) {
+      this.x = x;
+      this.y = y;
+      this.counter = 1;
+   }
+
+   public Boats(String x, int y, String x1, int y1) {
+      this.x = x;
+      this.x1 = x1;
+      this.y = y;
+      this.y1 = y1;
+      this.counter = 2;
+   }
+
+   public Boats(String x, int y, String x1, int y1, String x2, int y2) {
+      this.x = x;
+      this.x1 = x1;
+      this.x2 = x2;
+      this.y = y;
+      this.y1 = y1;
+      this.y2 = y2;
+      this.counter = 3;
+   }
+
+   public Boats(String x, int y, String x1, int y1, String x2, int y2, String x3, int y3) {
+      this.x = x;
+      this.x1 = x1;
+      this.x2 = x2;
+      this.x3 = x3;
+      this.y = y;
+      this.y1 = y1;
+      this.y2 = y2;
+      this.y3 = y3;
+      this.counter = 4;
+   }
+
+   public void showBoats() {
+      System.out.println("You have:\nOneDeck: " + this.countOneDeck + "\nTwoDeck: " + this.countTwoDeck + "\nThreeDeck: " + this.CountThreeDeck + "\nFourDeck: " + this.CountFourDeck);
+   }
+}
