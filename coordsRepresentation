@@ -1,0 +1,37 @@
+public enum CoordsX {//Representaion of symbols to make comfortable
+   a("a", 1),
+   b("b", 2),
+   c("c", 3),
+   d("d", 4),
+   e("e", 5),
+   f("f", 6),
+   g("g", 7),
+   h("h", 8),
+   i("i", 9),
+   j("j", 10),
+   compare(" ", 0);
+
+   private int value;
+   private String representation;
+
+   private CoordsX(String representation, int value) {
+      this.representation = representation;
+      this.value = value;
+   }
+
+   public String getRepresentation() {
+      return this.representation;
+   }
+
+   public int getValue() {
+      return this.value;
+   }
+
+   public void setRepresentation(String representation) {
+      this.representation = representation;
+   }
+
+   public void setValue(int value) {
+      this.value = value;
+   }
+}
