@@ -1,0 +1,519 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+public class Board {
+   protected String[][] battleGround = new String[11][11];
+   private CoordsX coordX;
+   private int x;
+   private int x1;
+   private int x2;
+   private int x3;
+   private int y;
+   private int y1;
+   private int y2;
+   private int y3;
+   private CoordsX[] arrayCoord;
+
+   public Board() {
+      this.arrayCoord = new CoordsX[]{CoordsX.a, CoordsX.b, CoordsX.c, CoordsX.d, CoordsX.e, CoordsX.f, CoordsX.g, CoordsX.h, CoordsX.i, CoordsX.j};
+      this.cornerRepres();
+      this.drawBattleGround();
+   }
+
+   public void setOneDeckBoat(Boats boat) {
+      this.checkOneDeck(boat);
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+   }
+
+   public void setTwoDeckBoat(Boats boat) {
+      this.checkTwoDeck(boat);
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
+   }
+
+   public void setThreeDeckBoat(Boats boat) {
+      this.checkThreeDeck(boat);
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
+      this.battleGround[boat.getY2()][this.x2] = "\ud83d\ude80";
+   }
+
+   public void setFourDeckBoat(Boats boat) {
+      this.checkFourDeck(boat);
+      this.battleGround[boat.getY()][this.x] = "\ud83d\ude80";
+      this.battleGround[boat.getY1()][this.x1] = "\ud83d\ude80";
+      this.battleGround[boat.getY2()][this.x2] = "\ud83d\ude80";
+      this.battleGround[boat.getY3()][this.x3] = "\ud83d\ude80";
+   }
+
+   private void checkOneDeck(Boats boat) {
+      boolean condition = false;
+      CoordsX[] var6;
+      int var5 = (var6 = this.arrayCoord).length;
+
+      for(int var4 = 0; var4 < var5; ++var4) {
+         CoordsX item = var6[var4];
+         if (item.getRepresentation().equals(boat.getX())) {
+            this.x = item.getValue();
+         }
+
+         condition = true;
+      }
+
+      if (!condition) {
+         System.out.println("Try again, you can write only symbols and numbers in diapazon on the screen");
+      }
+
+   }
+
+   private void checkTwoDeck(Boats boat) {
+      boolean condition = false;
+      CoordsX[] var6;
+      int var5 = (var6 = this.arrayCoord).length;
+
+      for(int var4 = 0; var4 < var5; ++var4) {
+         CoordsX item = var6[var4];
+         if (item.getRepresentation().equals(boat.getX())) {
+            this.x = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX1())) {
+            this.x1 = item.getValue();
+            condition = true;
+         }
+      }
+
+      if (!condition) {
+         System.out.println("Try again, you can write only symbols and numbers in diapazon on the screen");
+      }
+
+   }
+
+   private void checkThreeDeck(Boats boat) {
+      boolean condition = false;
+      CoordsX[] var6;
+      int var5 = (var6 = this.arrayCoord).length;
+
+      for(int var4 = 0; var4 < var5; ++var4) {
+         CoordsX item = var6[var4];
+         if (item.getRepresentation().equals(boat.getX())) {
+            this.x = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX1())) {
+            this.x1 = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX2())) {
+            this.x2 = item.getValue();
+            condition = true;
+         }
+      }
+
+      if (!condition) {
+         System.out.println("Try again, you can write only symbols and numbers in diapazon on the screen");
+      }
+
+   }
+
+   private void checkFourDeck(Boats boat) {
+      boolean condition = false;
+      CoordsX[] var6;
+      int var5 = (var6 = this.arrayCoord).length;
+
+      for(int var4 = 0; var4 < var5; ++var4) {
+         CoordsX item = var6[var4];
+         if (item.getRepresentation().equals(boat.getX())) {
+            this.x = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX1())) {
+            this.x1 = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX2())) {
+            this.x2 = item.getValue();
+            condition = true;
+         }
+
+         if (item.getRepresentation().equals(boat.getX3())) {
+            this.x3 = item.getValue();
+            condition = true;
+         }
+      }
+
+      if (!condition) {
+         System.out.println("Try again, you can write only symbols and numbers in diapazon on the screen");
+      }
+
+   }
+
+   public void barrier(Boats boat) {
+      if (boat.getCounter() == 1) {
+         this.x = this.convertingToInt(boat.getX());
+         this.y = boat.getY();
+         if (this.x - 1 != 0) {
+            this.battleGround[this.y][this.x - 1] = "*";
+         }
+
+         if (this.x + 1 < 11) {
+            this.battleGround[this.y][this.x + 1] = "*";
+         }
+
+         if (this.y - 1 != 0 && this.x - 1 != 0) {
+            this.battleGround[this.y - 1][this.x] = "*";
+            this.battleGround[this.y - 1][this.x - 1] = "*";
+         }
+
+         if (this.y - 1 != 0 && this.x + 1 < 11) {
+            this.battleGround[this.y - 1][this.x + 1] = "*";
+            this.battleGround[this.y - 1][this.x] = "*";
+         }
+
+         if (this.y + 1 < 11 && this.x - 1 != 0) {
+            this.battleGround[this.y + 1][this.x] = "*";
+            this.battleGround[this.y + 1][this.x - 1] = "*";
+         }
+
+         if (this.y + 1 < 11 && this.x + 1 < 11) {
+            this.battleGround[this.y + 1][this.x] = "*";
+            this.battleGround[this.y + 1][this.x + 1] = "*";
+         }
+      }
+
+      if (boat.getCounter() == 2) {
+         this.x = this.convertingToInt(boat.getX());
+         this.y = boat.getY();
+         this.x1 = this.convertingToInt(boat.getX1());
+         this.y1 = boat.getY1();
+         if (this.x != this.x1) {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x1 + 1 < 11) {
+               this.battleGround[this.y][this.x1 + 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x1 + 1 < 11) {
+               this.battleGround[this.y - 1][this.x1 + 1] = "*";
+               this.battleGround[this.y - 1][this.x1] = "*";
+               this.battleGround[this.y - 1][this.x] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x - 1 != 0) {
+               this.battleGround[this.y + 1][this.x] = "*";
+               this.battleGround[this.y + 1][this.x - 1] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x1 + 1 < 11) {
+               this.battleGround[this.y + 1][this.x1] = "*";
+               this.battleGround[this.y + 1][this.x1 + 1] = "*";
+               this.battleGround[this.y + 1][this.x] = "*";
+            }
+         } else {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x1 + 1 < 11) {
+               this.battleGround[this.y1][this.x1 + 1] = "*";
+            }
+
+            if (this.x + 1 < 11) {
+               this.battleGround[this.y][this.x + 1] = "*";
+            }
+
+            if (this.x1 - 1 != 0) {
+               this.battleGround[this.y1][this.x1 - 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x + 1 < 11) {
+               this.battleGround[this.y - 1][this.x + 1] = "*";
+               this.battleGround[this.y - 1][this.x] = "*";
+            }
+
+            if (this.y1 + 1 < 11 && this.x1 - 1 != 0) {
+               this.battleGround[this.y1 + 1][this.x1 - 1] = "*";
+            }
+
+            if (this.y1 + 1 < 11 && this.x1 + 1 < 11) {
+               this.battleGround[this.y1 + 1][this.x1 + 1] = "*";
+               this.battleGround[this.y1 + 1][this.x1] = "*";
+            }
+         }
+      }
+
+      if (boat.getCounter() == 3) {
+         this.x = this.convertingToInt(boat.getX());
+         this.y = boat.getY();
+         this.x1 = this.convertingToInt(boat.getX1());
+         this.y1 = boat.getY1();
+         this.x2 = this.convertingToInt(boat.getX2());
+         this.y2 = boat.getY2();
+         if (this.x != this.x1 && this.x1 != this.x2) {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x2 + 1 < 11) {
+               this.battleGround[this.y][this.x2 + 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+               this.battleGround[this.y - 1][this.x1] = "*";
+               this.battleGround[this.y - 1][this.x2] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x2 + 1 < 11) {
+               this.battleGround[this.y - 1][this.x2 + 1] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x - 1 != 0) {
+               this.battleGround[this.y + 1][this.x] = "*";
+               this.battleGround[this.y + 1][this.x - 1] = "*";
+               this.battleGround[this.y + 1][this.x1] = "*";
+               this.battleGround[this.y + 1][this.x2] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x2 + 1 < 11) {
+               this.battleGround[this.y + 1][this.x2 + 1] = "*";
+            }
+         } else {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x + 1 < 11) {
+               this.battleGround[this.y][this.x + 1] = "*";
+            }
+
+            if (this.x1 - 1 != 0) {
+               this.battleGround[this.y1][this.x1 - 1] = "*";
+            }
+
+            if (this.x1 + 1 < 11) {
+               this.battleGround[this.y1][this.x1 + 1] = "*";
+            }
+
+            if (this.x2 - 1 != 0) {
+               this.battleGround[this.y2][this.x2 - 1] = "*";
+            }
+
+            if (this.x2 + 1 < 11) {
+               this.battleGround[this.y2][this.x2 + 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x + 1 < 11) {
+               this.battleGround[this.y - 1][this.x + 1] = "*";
+            }
+
+            if (this.y2 + 1 < 11 && this.x2 - 1 != 0) {
+               this.battleGround[this.y2 + 1][this.x2 - 1] = "*";
+            }
+
+            if (this.y2 + 1 < 11 && this.x2 + 1 < 11) {
+               this.battleGround[this.y2 + 1][this.x2 + 1] = "*";
+               this.battleGround[this.y2 + 1][this.x2] = "*";
+            }
+         }
+      }
+
+      if (boat.getCounter() == 4) {
+         this.x = this.convertingToInt(boat.getX());
+         this.y = boat.getY();
+         this.x1 = this.convertingToInt(boat.getX1());
+         this.y1 = boat.getY1();
+         this.x2 = this.convertingToInt(boat.getX2());
+         this.y2 = boat.getY2();
+         this.x3 = this.convertingToInt(boat.getX3());
+         this.y3 = boat.getY3();
+         if (this.x != this.x1 && this.x1 != this.x2 && this.x2 != this.x3) {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x3 + 1 < 11) {
+               this.battleGround[this.y][this.x3 + 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x1] = "*";
+               this.battleGround[this.y - 1][this.x2] = "*";
+               this.battleGround[this.y - 1][this.x3] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x3 + 1 < 11) {
+               this.battleGround[this.y - 1][this.x3 + 1] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x - 1 != 0) {
+               this.battleGround[this.y + 1][this.x - 1] = "*";
+               this.battleGround[this.y + 1][this.x] = "*";
+               this.battleGround[this.y + 1][this.x1] = "*";
+               this.battleGround[this.y + 1][this.x2] = "*";
+               this.battleGround[this.y + 1][this.x3] = "*";
+            }
+
+            if (this.y + 1 < 11 && this.x3 + 1 < 11) {
+               this.battleGround[this.y + 1][this.x3 + 1] = "*";
+            }
+         } else {
+            if (this.x - 1 != 0) {
+               this.battleGround[this.y][this.x - 1] = "*";
+            }
+
+            if (this.x + 1 < 11) {
+               this.battleGround[this.y][this.x + 1] = "*";
+            }
+
+            if (this.x1 - 1 != 0) {
+               this.battleGround[this.y1][this.x1 - 1] = "*";
+            }
+
+            if (this.x1 + 1 < 11) {
+               this.battleGround[this.y1][this.x1 + 1] = "*";
+            }
+
+            if (this.x2 - 1 != 0) {
+               this.battleGround[this.y2][this.x2 - 1] = "*";
+            }
+
+            if (this.x2 + 1 < 11) {
+               this.battleGround[this.y2][this.x2 + 1] = "*";
+            }
+
+            if (this.x3 - 1 != 0) {
+               this.battleGround[this.y3][this.x3 - 1] = "*";
+            }
+
+            if (this.x3 + 1 < 11) {
+               this.battleGround[this.y3][this.x3 + 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x - 1 != 0) {
+               this.battleGround[this.y - 1][this.x] = "*";
+               this.battleGround[this.y - 1][this.x - 1] = "*";
+            }
+
+            if (this.y - 1 != 0 && this.x + 1 < 11) {
+               this.battleGround[this.y - 1][this.x + 1] = "*";
+            }
+
+            if (this.y3 + 1 < 11 && this.x3 - 1 != 0) {
+               this.battleGround[this.y3 + 1][this.x3 - 1] = "*";
+            }
+
+            if (this.y3 + 1 < 11 && this.x3 + 1 < 11) {
+               this.battleGround[this.y3 + 1][this.x3 + 1] = "*";
+               this.battleGround[this.y3 + 1][this.x3] = "*";
+            }
+         }
+      }
+
+   }
+
+   public void drawBattleGround() {
+      for(int i = 1; i < this.battleGround.length; ++i) {
+         for(int j = 1; j < this.battleGround[i].length; ++j) {
+            this.battleGround[i][j] = "%";
+         }
+      }
+
+   }
+
+   public void showBattleGround() {
+      for(int i = 0; i < this.battleGround.length; ++i) {
+         for(int j = 0; j < this.battleGround.length; ++j) {
+            System.out.print(this.battleGround[i][j] + " ");
+         }
+
+         System.out.println();
+      }
+
+   }
+
+   public int convertingToInt(String repres) {
+      CoordsX[] var5;
+      int var4 = (var5 = this.arrayCoord).length;
+
+      for(int var3 = 0; var3 < var4; ++var3) {
+         CoordsX item = var5[var3];
+         if (item.getRepresentation().equals(repres)) {
+            return item.getValue();
+         }
+      }
+
+      return 0;
+   }
+
+   public void cornerRepres() {
+      this.battleGround[0][0] = "  ";
+      this.battleGround[0][1] = CoordsX.a.getRepresentation();
+      this.battleGround[0][2] = CoordsX.b.getRepresentation();
+      this.battleGround[0][3] = CoordsX.c.getRepresentation();
+      this.battleGround[0][4] = CoordsX.d.getRepresentation();
+      this.battleGround[0][5] = CoordsX.e.getRepresentation();
+      this.battleGround[0][6] = CoordsX.f.getRepresentation();
+      this.battleGround[0][7] = CoordsX.g.getRepresentation();
+      this.battleGround[0][8] = CoordsX.h.getRepresentation();
+      this.battleGround[0][9] = CoordsX.i.getRepresentation();
+      this.battleGround[0][10] = CoordsX.j.getRepresentation();
+      this.battleGround[1][0] = "01";
+      this.battleGround[2][0] = "02";
+      this.battleGround[3][0] = "03";
+      this.battleGround[4][0] = "04";
+      this.battleGround[5][0] = "05";
+      this.battleGround[6][0] = "06";
+      this.battleGround[7][0] = "07";
+      this.battleGround[8][0] = "08";
+      this.battleGround[9][0] = "09";
+      this.battleGround[10][0] = "10";
+   }
+
+   public boolean checkPlacement(Boats boat) {
+      return boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY();
+   }
+
+   public boolean checkPlacementThree(Boats boat) {
+      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY()) && (boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1());
+   }
+
+   public boolean checkPlacementFour(Boats boat) {
+      return (boat.getY1() == boat.getY() + 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.getY1() == boat.getY() - 1 && boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) + 1 && boat.getY1() == boat.getY() || boat.convertingToInt(boat.getX1()) == boat.convertingToInt(boat.getX()) - 1 && boat.getY1() == boat.getY()) && (boat.getY2() == boat.getY1() + 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.getY2() == boat.getY1() - 1 && boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) + 1 && boat.getY2() == boat.getY1() || boat.convertingToInt(boat.getX2()) == boat.convertingToInt(boat.getX1()) - 1 && boat.getY2() == boat.getY1()) && (boat.getY3() == boat.getY2() + 1 && boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) || boat.getY3() == boat.getY2() - 1 && boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) || boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) + 1 && boat.getY3() == boat.getY2() || boat.convertingToInt(boat.getX3()) == boat.convertingToInt(boat.getX2()) - 1 && boat.getY3() == boat.getY2());
+   }
+
+   public boolean checkExistence(Board board) {
+      for(int i = 1; i < board.battleGround.length; ++i) {
+         for(int j = 1; j < board.battleGround[i].length; ++j) {
+            if (board.battleGround[i][j] == "\ud83d\ude80") {
+               return true;
+            }
+         }
+      }
+
+      return false;
+   }
+}
