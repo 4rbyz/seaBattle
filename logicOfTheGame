@@ -1,0 +1,200 @@
+import java.util.Scanner;
+
+public class Game extends Board {
+   private Board board1 = new Board();
+   private Board board2 = new Board();
+   private Board board_test1 = new Board();
+   private Board board_test2 = new Board();
+   private Player player1;
+   private Player player2;
+   private Scanner scanner;
+   private int x;
+   private int y;
+
+   public Game(Board board1, Board board2) {//Creating players and fields for both gamers
+      this.player1 = new Player(this.board1);
+      this.player2 = new Player(this.board2);
+      this.scanner = new Scanner(System.in);
+      this.board1 = board1;
+      this.board2 = board2;
+   }
+
+   public void gameStart(Board board1, Board board2, Board board_test1, Board board_test2) {
+      this.turn(board1, 1);
+      this.turn(board2, 2);
+
+      while(this.checkExistence(board1) || this.checkExistence(board2)) {
+         if (!this.checkExistence(board1)) {
+            this.out("Player 2 is a winner!!!");
+            break;
+         }
+
+         if (!this.checkExistence(board2)) {
+            this.out("Player 1 is a winner!!!");
+            break;
+         }
+
+         this.out("Your turn player 1, your table is ");
+         board1.showBattleGround();
+         this.out("Your shot map is ");
+         board_test1.showBattleGround();
+         this.shot(board2, board_test1);
+         this.out("Your turn player 2, your table is ");
+         board2.showBattleGround();
+         this.out("Your shot map is ");
+         board_test2.showBattleGround();
+         this.shot(board1, board_test2);
+      }
+
+   }
+
+   public void out(String string) {
+      System.out.println(string);
+   }
+
+   public void turn(Board board, int player) { //Turn of the player
+      this.out("Player " + player + " place your BOATS");
+      int i = 0;
+
+      int y;
+      String x;
+      while(i < 4) {
+         try {
+            System.out.println("Write coords in format a 1 ");
+            x = this.scanner.next();
+            y = this.scanner.nextInt();
+            if (board.battleGround[y][board.convertingToInt(x)] != "\ud83d\ude80" && board.battleGround[y][board.convertingToInt(x)] != "*") {
+               Boats boatOneD = new Boats(x.toLowerCase(), y);
+               board.setOneDeckBoat(boatOneD);
+               board.barrier(boatOneD);
+               board.showBattleGround();
+               ++i;
+            } else {
+               System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+            }
+         } catch (Exception var20) {
+            System.out.println("You wrote wrong, try again ");
+         }
+      }
+
+      i = 0;
+
+      int y1;
+      String x1;
+      while(i < 3) {
+         try {
+            System.out.println("Write coords in format a 1 b 1 ");
+            x = this.scanner.next();
+            y = this.scanner.nextInt();
+            x1 = this.scanner.next();
+            y1 = this.scanner.nextInt();
+            if (board.battleGround[y][board.convertingToInt(x)] != "\ud83d\ude80" && board.battleGround[y][board.convertingToInt(x)] != "*" && board.battleGround[y1][board.convertingToInt(x1)] != "\ud83d\ude80" && board.battleGround[y1][board.convertingToInt(x1)] != "*") {
+               Boats boatTwoD = new Boats(x.toLowerCase(), y, x1.toLowerCase(), y1);
+               if (this.checkPlacement(boatTwoD)) {
+                  board.setTwoDeckBoat(boatTwoD);
+                  board.barrier(boatTwoD);
+                  board.showBattleGround();
+                  ++i;
+               } else {
+                  System.out.println("You need to write in format like a 1 b 1");
+               }
+            } else {
+               System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+            }
+         } catch (Exception var19) {
+            System.out.println("You wrote wrong, try again ");
+         }
+      }
+
+      i = 0;
+
+      int y2;
+      String x2;
+      while(i < 2) {
+         try {
+            System.out.println("Write coords in format a 1 b 1 c 1");
+            x = this.scanner.next();
+            y = this.scanner.nextInt();
+            x1 = this.scanner.next();
+            y1 = this.scanner.nextInt();
+            x2 = this.scanner.next();
+            y2 = this.scanner.nextInt();
+            if (board.battleGround[y][board.convertingToInt(x)] != "\ud83d\ude80" && board.battleGround[y][board.convertingToInt(x)] != "*" && board.battleGround[y1][board.convertingToInt(x1)] != "\ud83d\ude80" && board.battleGround[y1][board.convertingToInt(x1)] != "*" && board.battleGround[y2][board.convertingToInt(x2)] != "\ud83d\ude80" && board.battleGround[y2][board.convertingToInt(x2)] != "*") {
+               Boats boatThreeD = new Boats(x.toLowerCase(), y, x1.toLowerCase(), y1, x2.toLowerCase(), y2);
+               if (board.checkPlacementThree(boatThreeD)) {
+                  board.setThreeDeckBoat(boatThreeD);
+                  board.barrier(boatThreeD);
+                  ++i;
+                  board.showBattleGround();
+               } else {
+                  System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+               }
+            } else {
+               System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+            }
+         } catch (Exception var18) {
+            System.out.println("You wrote wrong, try again ");
+         }
+      }
+
+      i = 0;
+
+      while(i < 1) {
+         try {
+            System.out.println("Write coords in format a 1 b 1 c 1 d 1");
+            x = this.scanner.next();
+            y = this.scanner.nextInt();
+            x1 = this.scanner.next();
+            y1 = this.scanner.nextInt();
+            x2 = this.scanner.next();
+            y2 = this.scanner.nextInt();
+            String x3 = this.scanner.next();
+            int y3 = this.scanner.nextInt();
+            if (board.battleGround[y][board.convertingToInt(x)] != "\ud83d\ude80" && board.battleGround[y][board.convertingToInt(x)] != "*" && board.battleGround[y1][board.convertingToInt(x1)] != "\ud83d\ude80" && board.battleGround[y1][board.convertingToInt(x1)] != "*" && board.battleGround[y2][board.convertingToInt(x2)] != "\ud83d\ude80" && board.battleGround[y2][board.convertingToInt(x2)] != "*" && board.battleGround[y3][board.convertingToInt(x3)] != "\ud83d\ude80" && board.battleGround[y3][board.convertingToInt(x3)] != "*") {
+               Boats boatFourD = new Boats(x.toLowerCase(), y, x1.toLowerCase(), y1, x2.toLowerCase(), y2, x3.toLowerCase(), y3);
+               if (board.checkPlacementFour(boatFourD)) {
+                  board.setFourDeckBoat(boatFourD);
+                  board.barrier(boatFourD);
+                  ++i;
+                  board.showBattleGround();
+               } else {
+                  System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+               }
+            } else {
+               System.out.println("You placed the boat to existing boat or you tried to add boat on barier ");
+            }
+         } catch (Exception var17) {
+            System.out.println("You wrote wrong, try again ");
+         }
+      }
+
+   }
+
+   public void shot(Board board2, Board board_test) {
+      try {
+         System.out.println("Write coords in format a 1 to do shot");
+         String x = this.scanner.next();
+         int y = this.scanner.nextInt();
+         this.x = this.convertingToInt(x);
+         this.y = y;
+
+         do {
+            do {
+               if (this.convertingToInt(x) > 0 && y > 0 && this.convertingToInt(x) != 11 && y != 11) {
+                  if (board2.battleGround[this.y][this.x] == "\ud83d\ude80") {
+                     System.out.println("YOU GET SHOOOT THE BOOOAT!!!!");
+                     board2.battleGround[this.y][this.x] = "X";
+                     board_test.battleGround[this.y][this.x] = "X";
+                  } else {
+                     this.out("You miss");
+                     board_test.battleGround[this.y][this.x] = "x";
+                  }
+               }
+            } while(this.convertingToInt(x) <= 0 && y <= 0);
+         } while(this.convertingToInt(x) >= 11 && y >= 11);
+      } catch (Exception var6) {
+         this.out("You wrote the wrong format");
+      }
+
+   }
+}
